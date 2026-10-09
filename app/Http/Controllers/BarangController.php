@@ -33,20 +33,20 @@ class BarangController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'sku' => 'required',
-            'nama_barang' => 'required',
-            'kategori' => 'required',
-            'satuan' => 'required',
-            'harga_pokok' => 'required',
-            'harga_jual' => 'required',
-            'status_aktif' => 'required',
+        $validated = $request->validate([
+            'sku' => 'required|string|max:255|unique:barangs,sku',
+            'nama_barang' => 'required|string|max:255',
+            'id_kategori' => 'required|exists:kategoris,id',
+            'satuan' => 'required|string|max:255',
+            'harga_pokok' => 'required|integer|min:0',
+            'harga_jual' => 'required|integer|min:0',
+            'status_aktif' => 'required|in:Tersedia,Tidak Tersedia',
         ]);
 
-        Barang::create($request->all());
+        Barang::create($validated);
 
-        return redirect()->route('home.barang.index')
-            ->with('success', 'Barang created successfully.');
+        return redirect()->route('barang.index')
+            ->with('success', 'Barang berhasil ditambahkan.');
     }
 
     /**

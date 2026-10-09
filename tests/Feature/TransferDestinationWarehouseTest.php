@@ -18,7 +18,6 @@ class TransferDestinationWarehouseTest extends TestCase
             ->post(route('gudang.store'), [
                 'kode_gudang' => 'GUD002',
                 'nama_gudang' => 'Gudang Cabang',
-                'lokasi' => 'Bandung',
                 'return_to' => 'transfer',
             ])
             ->assertRedirect(route('transfer.create'));
@@ -26,7 +25,7 @@ class TransferDestinationWarehouseTest extends TestCase
         $this->assertDatabaseHas('gudangs', [
             'kode_gudang' => 'GUD002',
             'nama_gudang' => 'Gudang Cabang',
-            'lokasi' => 'Bandung',
+            'lokasi' => '',
         ]);
 
         $this->get(route('transfer.create'))

@@ -34,12 +34,13 @@ class GudangController extends Controller
         $validated = $request->validate([
             'kode_gudang' => 'required|string|max:50|unique:gudangs,kode_gudang',
             'nama_gudang' => 'required|string|max:255',
-            'lokasi' => 'required|string|max:255',
+            'lokasi' => 'nullable|string|max:255',
             'return_to' => 'nullable|in:transfer',
         ]);
 
         $returnToTransfer = ($validated['return_to'] ?? null) === 'transfer';
         unset($validated['return_to']);
+        $validated['lokasi'] = $validated['lokasi'] ?? '';
         Gudang::create($validated);
 
         if ($returnToTransfer) {

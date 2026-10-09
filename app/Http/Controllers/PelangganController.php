@@ -29,16 +29,16 @@ class PelangganController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_pelanggan' => 'required',
-            'alamat' => 'required',
-            'no_telp' => 'required',
+        $validated = $request->validate([
+            'nama_pelanggan' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'no_hp' => 'required|string|max:255|unique:pelanggans,no_hp',
         ]);
 
-        Pelanggan::create($request->all());
+        Pelanggan::create($validated);
 
-        return redirect()->route('home.pelanggan.index')
-            ->with('success', 'Pelanggan created successfully.');
+        return redirect()->route('pelanggan.index')
+            ->with('success', 'Pelanggan berhasil ditambahkan.');
     }
 
     /**
@@ -65,11 +65,11 @@ class PelangganController extends Controller
         $request->validate([
             'nama_pelanggan' => 'required',
             'alamat' => 'required',
-            'no_telp' => 'required',
+            'no_hp' => 'required|string|max:255|unique:pelanggans,no_hp,' . $id,
         ]);
 
         $pelanggan = Pelanggan::findOrFail($id);
-        $pelanggan->update($request->all());
+        $pelanggan->update($request->only(['nama_pelanggan', 'alamat', 'no_hp']));
 
         return redirect()->route('pelanggan.index')
             ->with('success', 'Pelanggan updated successfully.');

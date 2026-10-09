@@ -38,9 +38,9 @@
 						</div>
 
 						<div class="form-group">
-							<label for="lokasi">Lokasi</label>
+							<label for="lokasi">Lokasi (opsional)</label>
 							<input type="text" id="lokasi" name="lokasi" value="{{ old('lokasi') }}"
-								   class="form-control @error('lokasi') is-invalid @enderror" required maxlength="255">
+								   class="form-control @error('lokasi') is-invalid @enderror" maxlength="255">
 							@error('lokasi')
 								<div class="invalid-feedback">{{ $message }}</div>
 							@enderror

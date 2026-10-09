@@ -46,6 +46,7 @@ Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index
 
 Route::get('/pelanggan', [PelangganController::class,'index'])->name('pelanggan.index');
 Route::get('/pelanggan/create', [PelangganController::class,'create'])->name('pelanggan.create');
+Route::post('/pelanggan', [PelangganController::class,'store'])->name('pelanggan.store');
 
 
 
